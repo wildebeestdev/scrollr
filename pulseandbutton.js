@@ -1,42 +1,46 @@
 (function() {
+  console.log("pulse and button loaded");
 
-// Localize jQuery variable
-var jQuery;
+  // Localize jQuery variable
+  var jQuery;
 
-/******** Load jQuery if not present *********/
-if (window.jQuery === undefined || window.jQuery.fn.jquery !== '2.1.1') {
-    var script_tag = document.createElement('script');
-    script_tag.setAttribute("type","text/javascript");
-    script_tag.setAttribute("src",
-        "https://code.jquery.com/jquery-2.1.1.js");
-    if (script_tag.readyState) {
-      script_tag.onreadystatechange = function () { // For old versions of IE
-          if (this.readyState == 'complete' || this.readyState == 'loaded') {
-              scriptLoadHandler();
-          }
-      };
-    } else { // Other browsers
-      script_tag.onload = scriptLoadHandler;
-    }
-    // Try to find the head, otherwise default to the documentElement
-    (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(script_tag);
-} else {
-    // The jQuery version on the window is the one we want to use
-    jQuery = window.jQuery;
-    main();
-}
+  /******** Load jQuery if not present *********/
+  if (window.jQuery === undefined || window.jQuery.fn.jquery !== '2.1.1') {
+      var script_tag = document.createElement('script');
+      script_tag.setAttribute("type","text/javascript");
+      script_tag.setAttribute("src",
+          "https://code.jquery.com/jquery-2.1.1.js");
+      if (script_tag.readyState) {
+        script_tag.onreadystatechange = function () { // For old versions of IE
+            if (this.readyState == 'complete' || this.readyState == 'loaded') {
+                scriptLoadHandler();
+            }
+        };
+      } else { // Other browsers
+        script_tag.onload = scriptLoadHandler;
+      }
+      // Try to find the head, otherwise default to the documentElement
+      (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(script_tag);
+  } else {
+      // The jQuery version on the window is the one we want to use
+      jQuery = window.jQuery;
+      main();
+  }
 
-/******** Called once jQuery has loaded ******/
-function scriptLoadHandler() {
-    // Restore $ and window.jQuery to their previous values and store the
-    // new jQuery in our local jQuery variable
-    jQuery = window.jQuery.noConflict(true);
-    // Call our main function
-    main(); 
-}
+  /******** Called once jQuery has loaded ******/
+  function scriptLoadHandler() {
+      // Restore $ and window.jQuery to their previous values and store the
+      // new jQuery in our local jQuery variable
+      jQuery = window.jQuery.noConflict(true);
+      // Call our main function
+      main(); 
+  }
 
-/******** Our main function ********/
-function main() { 
+
+  function main(){
+    var linkto = $('#pulseandbutton').attr('class');
+
+
     jQuery(document).ready(function($) { 
         $(document).ready(function(){
           standard = $('#standard');
@@ -61,8 +65,9 @@ function main() {
             }
           });
 
-       // circle
-       $('body').prepend("<img class='circle' src='https://drive.google.com/uc?id=0B-vDWhuKjuHjalZwaUFWcDVkdUE'>");
+
+            $('body').prepend("<a href='" + linkto + "'>" +"<img class='circle' src='https://drive.google.com/uc?id=0B-vDWhuKjuHjalZwaUFWcDVkdUE'>"+"</a>");
+       
 
             $('img.circle').css({
              "box-shadow": "-1px -1px 50px #888888",
@@ -110,9 +115,8 @@ function main() {
         });
 
 
-// CIRCLE
 
-        var selector = ".circle"
+        var selector = ".circle";
         var circlePlacement = $(window).height() + $(window).height()/2;
 
  
@@ -169,7 +173,7 @@ function main() {
         
       });
     });
-}
+  }
 
 })(); // We call our anonymous function immediately
 

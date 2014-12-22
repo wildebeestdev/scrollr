@@ -1,42 +1,46 @@
 (function() {
+  console.log("button loaded");
 
-// Localize jQuery variable
-var jQuery;
+  // Localize jQuery variable
+  var jQuery;
 
-/******** Load jQuery if not present *********/
-if (window.jQuery === undefined || window.jQuery.fn.jquery !== '2.1.1') {
-    var script_tag = document.createElement('script');
-    script_tag.setAttribute("type","text/javascript");
-    script_tag.setAttribute("src",
-        "https://code.jquery.com/jquery-2.1.1.js");
-    if (script_tag.readyState) {
-      script_tag.onreadystatechange = function () { // For old versions of IE
-          if (this.readyState == 'complete' || this.readyState == 'loaded') {
-              scriptLoadHandler();
-          }
-      };
-    } else { // Other browsers
-      script_tag.onload = scriptLoadHandler;
-    }
-    // Try to find the head, otherwise default to the documentElement
-    (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(script_tag);
-} else {
-    // The jQuery version on the window is the one we want to use
-    jQuery = window.jQuery;
-    main();
-}
+  /******** Load jQuery if not present *********/
+  if (window.jQuery === undefined || window.jQuery.fn.jquery !== '2.1.1') {
+      var script_tag = document.createElement('script');
+      script_tag.setAttribute("type","text/javascript");
+      script_tag.setAttribute("src",
+          "https://code.jquery.com/jquery-2.1.1.js");
+      if (script_tag.readyState) {
+        script_tag.onreadystatechange = function () { // For old versions of IE
+            if (this.readyState == 'complete' || this.readyState == 'loaded') {
+                scriptLoadHandler();
+            }
+        };
+      } else { // Other browsers
+        script_tag.onload = scriptLoadHandler;
+      }
+      // Try to find the head, otherwise default to the documentElement
+      (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(script_tag);
+  } else {
+      // The jQuery version on the window is the one we want to use
+      jQuery = window.jQuery;
+      main();
+  }
 
-/******** Called once jQuery has loaded ******/
-function scriptLoadHandler() {
-    // Restore $ and window.jQuery to their previous values and store the
-    // new jQuery in our local jQuery variable
-    jQuery = window.jQuery.noConflict(true);
-    // Call our main function
-    main(); 
-}
+  /******** Called once jQuery has loaded ******/
+  function scriptLoadHandler() {
+      // Restore $ and window.jQuery to their previous values and store the
+      // new jQuery in our local jQuery variable
+      jQuery = window.jQuery.noConflict(true);
+      // Call our main function
+      main(); 
+  }
 
-/******** Our main function ********/
-function main() { 
+
+
+  function main(){
+    var linkto = $('#button').attr('class');
+
     jQuery(document).ready(function($) { 
         $(document).ready(function(){
           standard = $('#standard');
@@ -61,8 +65,8 @@ function main() {
             }
           });
 
-       // circle
-       $('body').prepend("<img class='circle' src='https://drive.google.com/uc?id=0B-vDWhuKjuHjalZwaUFWcDVkdUE'>");
+        // circle
+        $('body').prepend("<a href='" + linkto + "'>" +"<img class='circle' src='https://drive.google.com/uc?id=0B-vDWhuKjuHjalZwaUFWcDVkdUE'>"+"</a>");
 
             $('img.circle').css({
              "box-shadow": "-1px -1px 50px #888888",
@@ -76,43 +80,7 @@ function main() {
             });
         });
 
-        $(window).on('scroll', function(){
-          $(adsArray).each(function(){
-            if ($(window).scrollTop() % 10 == 0) {
-              if ($(this).hasClass("big")){
-                $(this).removeClass("big");
-                $(this).addClass("reg");
-                $(this).css('transition', '200ms');
-                $(this).css('transform', 'scale(1,1)');
-              } else {
-                $(this).removeClass("reg");
-                $(this).addClass("big");
-                $(this).css('transition', '200ms');
-                $(this).css('transform', 'scale(1.025,1.025)');
-              };
-            };
-          }); 
-          overlayArray = $.grep(adsArray, function(a,i){
-            return $(a).height() != 90; 
-          });
-          $.each(overlayArray, function(){
-            if($(window).scrollTop() < $(this).offset().top && $(this).offset().top < $(window).scrollTop() + 40){
-              $(this).css('z-index', 20);
-              $(overlay).show();
-            } else if ($(this).offset().top < $(window).scrollTop()) {
-              $(overlay).hide();
-              $(this).css('z-index', 0);
-            } else if ($(overlayArray)[0].offset().top > $(window).scrollTop() + 40) {
-              $(overlay).hide();
-              $(this).css('z-index', 0);
-            }
-          });
-        });
-
-
-// CIRCLE
-
-        var selector = ".circle"
+        var selector = ".circle";
         var circlePlacement = $(window).height() + $(window).height()/2;
 
  
@@ -169,7 +137,11 @@ function main() {
         
       });
     });
-}
+        
+           
+
+  }
+  
 
 })(); // We call our anonymous function immediately
 
